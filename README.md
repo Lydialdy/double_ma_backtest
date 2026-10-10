@@ -23,6 +23,19 @@ python src/download_data.py
 python src/run_research.py
 ``
 
+目录说明
+ 
+-  src/ ：全部源代码
+
+-  data/ ：存放下载后的A股行情数据，程序运行时会自动创建，不需要手动新建文件夹
+
+-  README.md ：项目说明文档
+
+-  requirements.txt ：项目依赖库清单
+
+-  .gitignore ：忽略配置，不会上传本地缓存、数据文件到仓库
+
+
 策略逻辑
  
 双均线策略：5日均线上穿20日均线，开仓做多；均线死叉平仓
