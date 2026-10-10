@@ -1,0 +1,12 @@
+# 数据文件
+data/*.csv
+
+# python缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE配置文件
+.idea/
+.vscode/
