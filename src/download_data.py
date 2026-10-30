@@ -20,8 +20,13 @@ def download_stock_data(symbol='000001', start_date='20200101', end_date='202512
     end = datetime.strptime(end_date, '%Y%m%d')
     if start > end:
         raise ValueError('Start date must be on or before end date.')
-    df = ak.stock_zh_a_hist(symbol=symbol, period='daily', start_date=start_date,
-                          end_date=end_date, adjust=adjust)
+    try:
+        df = ak.stock_zh_a_hist(symbol=symbol, period='daily', start_date=start_date,
+                              end_date=end_date, adjust=adjust)
+    except Exception as exc:
+        raise RuntimeError(f'AKShare request failed: {exc}. Retry later or use a local CSV.') from exc
+    if df.empty:
+        raise ValueError('No prices returned. Check the symbol, date range and data provider.')
     df = df.rename(columns={'日期':'date', '开盘':'open', '收盘':'close',
                             '最高':'high', '最低':'low', '成交量':'volume'})
     df = validate_prices(df[['date', 'open', 'close', 'high', 'low', 'volume']])

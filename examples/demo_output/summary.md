@@ -6,18 +6,18 @@ Evaluation: 2024-01-29 to 2025-03-21 (300 sessions).
 
 | Metric | Strategy | Buy and hold |
 |---|---:|---:|
-| Total return | 75.91% | -1.89% |
-| Annualized return | 60.71% | -1.59% |
-| Annualized volatility | 11.50% | 15.67% |
-| Sharpe ratio | 4.18 | -0.02 |
-| Maximum drawdown | -5.20% | -28.44% |
+| Total return | -9.76% | -5.35% |
+| Annualized return | -8.26% | -4.51% |
+| Annualized volatility | 11.55% | 17.99% |
+| Sharpe ratio | -0.69 | -0.17 |
+| Maximum drawdown | -20.66% | -22.47% |
 
 Windows: 5/20 sessions; one-way cost: 10 bps; assumed annual risk-free rate: 0.00%.
-Entries: 4; exits: 3; intraday exposure: 52.0%.
+Entries: 10; exits: 9; intraday exposure: 45.3%.
 
 Previous close signal; next session open execution; terminal positions marked to market.
 
 Costs are illustrative. Fractional positions are assumed; no volume, limit-up/limit-down or lot-size constraints are simulated.
 Annualization uses 252 sessions. Cash earns zero. The baseline and strategy use the same evaluation dates.
 
-Input SHA-256: b48ca820ecd4a3582db6baaa1f25b4e89a16b09e6c9f1ebd5226759ea6c0d06a
+Input SHA-256: f9cb413c70c216cf9417a0038cdf24f34fb65c277df59f50ebf1b18cea0c6d0a

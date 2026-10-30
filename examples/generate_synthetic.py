@@ -6,7 +6,8 @@ import pandas as pd
 def main():
     rng=np.random.default_rng(42)
     n=320
-    returns=.0003+.007*np.sin(np.arange(n)/17)+rng.normal(0,.009,n)
+    # A simple random walk, without a built-in trend or crossover pattern.
+    returns=rng.normal(0,.012,n)
     close=100*np.exp(np.cumsum(returns))
     previous=np.r_[100,close[:-1]]
     opening=previous*np.exp(rng.normal(0,.004,n))

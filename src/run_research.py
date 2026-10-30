@@ -41,6 +41,11 @@ def main(argv=None):
     sidecar = input_path.with_suffix('.metadata.json')
     if sidecar.is_file():
         metrics['data']['source_metadata'] = json.loads(sidecar.read_text(encoding='utf-8'))
+        source = metrics['data']['source_metadata']
+        if not is_demo and source.get('symbol'):
+            adjustment = source.get('adjust') or 'unadjusted'
+            label = f"A-share {source['symbol']} | AKShare / Eastmoney | {adjustment} daily prices"
+            metrics['data']['label'] = label
     metrics['environment'] = {'python':platform.python_version(), 'pandas':pd.__version__, 'numpy':np.__version__}
     args.output.mkdir(parents=True, exist_ok=True)
     daily.to_csv(args.output / 'daily.csv', index=False, date_format='%Y-%m-%d')

@@ -41,6 +41,8 @@ def write_chart(daily, path, label):
         span = max(high - low, 0.02)
         low -= span * .06
         high += span * .06
+        if initial == 0:
+            high = 0.0
         def y(a):
             return bottom - (a - low) / (high - low) * (bottom - top)
         parts.append(f'<text x="80" y="{top-14}">{title}</text>')

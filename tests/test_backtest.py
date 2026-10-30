@@ -4,11 +4,13 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import Mock, patch
 import numpy as np
 import pandas as pd
 from src.backtest import BacktestConfig, run_backtest
 from src.data import ROOT, validate_prices
 from src.features import add_features
+from src.download_data import download_stock_data
 from src.metrics import calc_sharpe, max_drawdown
 
 
@@ -131,6 +133,31 @@ class ValidationTests(unittest.TestCase):
             run_backtest(prices(),BacktestConfig(1,2,0),start='2025-01-01')
         with self.assertRaises(ValueError):
             run_backtest(prices(),BacktestConfig(1,2,0),start='2025-01-01',end='2024-01-01')
+
+
+class DownloadTests(unittest.TestCase):
+    def test_download_saves_prices_and_source_metadata(self):
+        frame=pd.DataFrame({'日期':['2024-01-02'],'开盘':[10.0],'收盘':[11.0],
+                            '最高':[12.0],'最低':[9.0],'成交量':[100]})
+        client=Mock(__version__='test',stock_zh_a_hist=Mock(return_value=frame))
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder, patch.dict(sys.modules,{'akshare':client}):
+            result=download_stock_data(output=Path(folder)/'nested'/'prices.csv')
+            self.assertEqual(pd.read_csv(result).columns.tolist(),['date','open','close','high','low','volume'])
+            metadata=json.loads(result.with_suffix('.metadata.json').read_text())
+            self.assertEqual(metadata['symbol'],'000001')
+            self.assertEqual(metadata['adjust'],'qfq')
+            self.assertEqual(metadata['rows'],1)
+            client.stock_zh_a_hist.assert_called_once_with(symbol='000001',period='daily',
+                start_date='20200101',end_date='20251231',adjust='qfq')
+
+    def test_download_reports_empty_data_and_network_errors(self):
+        client=Mock(stock_zh_a_hist=Mock(return_value=pd.DataFrame()))
+        with patch.dict(sys.modules,{'akshare':client}):
+            with self.assertRaisesRegex(ValueError,'No prices returned'):
+                download_stock_data()
+            client.stock_zh_a_hist.side_effect=ConnectionError('temporary failure')
+            with self.assertRaisesRegex(RuntimeError,'AKShare request failed'):
+                download_stock_data()
 
 
 class CommandLineTests(unittest.TestCase):

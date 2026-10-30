@@ -1,0 +1,53 @@
+{
+  "configuration": {
+    "fast": 5,
+    "slow": 20,
+    "cost_bps": 10.0,
+    "risk_free_rate": 0.0
+  },
+  "start": "2020-02-07",
+  "end": "2025-12-31",
+  "execution": "Previous close signal; next session open execution; terminal positions marked to market.",
+  "strategy": {
+    "sessions": 1435,
+    "total_return": -0.3748989058560368,
+    "annualized_return": -0.07919668366894272,
+    "annualized_volatility": 0.2464866516350471,
+    "sharpe": -0.21277399382199252,
+    "max_drawdown": -0.6154875911582278,
+    "entries": 45,
+    "exits": 44,
+    "exposure_fraction": 0.4529616724738676,
+    "terminal_position": 1
+  },
+  "buy_and_hold": {
+    "sessions": 1435,
+    "total_return": -0.06343750000000159,
+    "annualized_return": -0.011443313043776215,
+    "annualized_volatility": 0.35229766874040724,
+    "sharpe": 0.14177126054664854,
+    "max_drawdown": -0.6927899686520377
+  },
+  "data": {
+    "label": "A-share 000001 | AKShare / Eastmoney | qfq daily prices",
+    "synthetic_demo": false,
+    "file": "daily.csv",
+    "sha256": "d6aeca1bf1042de39d86b56e5ba38835a4c85d7a5c1b398a5208ea06372654f4",
+    "input_rows": 1455,
+    "source_metadata": {
+      "source": "AKShare stock_zh_a_hist / Eastmoney",
+      "symbol": "000001",
+      "requested_start": "20200101",
+      "requested_end": "20251231",
+      "adjust": "qfq",
+      "retrieved_utc": "2026-10-30T11:56:19.976100+00:00",
+      "akshare_version": "1.20.16",
+      "rows": 1455
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4"
+  }
+}
